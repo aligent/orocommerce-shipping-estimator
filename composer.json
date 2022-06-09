@@ -1,0 +1,40 @@
+{
+    "name": "aligent/orocommerce-shipping-estimator",
+    "description": "An OroCommerce Bundle that adds a shipping estimator component.",
+    "type": "library",
+    "license": "GPL-3.0-only",
+    "autoload": {
+        "psr-4": {
+            "Aligent\\ShippingEstimatorBundle\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bruno Pasqualini",
+            "email": "bruno.pasqualini@aligent.com.au"
+        }
+    ],
+    "repositories": {
+        "oro": {
+            "type": "composer",
+            "url": "https://packagist.orocrm.com"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "oro/commerce": "4.2.*",
+        "oro/platform": "^4.2.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5",
+        "phpstan/phpstan": "^1.7",
+        "phpmd/phpmd": "^2.12",
+        "friendsofphp/php-cs-fixer": "~2.18.2",
+        "symfony/phpunit-bridge": "~4.4.24",
+        "squizlabs/php_codesniffer": "^3.6"
+    }
+}

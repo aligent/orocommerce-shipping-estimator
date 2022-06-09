@@ -1,0 +1,12 @@
+# IDE
+.idea
+
+# PHPUnit
+.phpunit.result.cache
+
+# Composer
+composer.lock
+vendor/
+
+# Binarys
+bin/
