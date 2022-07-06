@@ -1,0 +1,50 @@
+layout:
+    actions:
+        - '@setBlockTheme':
+            themes: 'shipping_estimator.html.twig'
+
+        - '@setOption':
+            id: shopping_list_checkout_container
+            optionName: attr.class
+            optionValue: ' shopping-list__bottom'
+
+        - '@add':
+            id: shipping_estimator_container
+            parentId: page_content
+            blockType: container
+            prepend: false
+            options:
+                vars:
+                    visible: '=data["feature"].isFeatureEnabled("aligent_shipping_estimator") && data["entity"]'
+        - '@add':
+            id: shipping_estimator_form_start
+            parentId: shipping_estimator_container
+            blockType: form_start
+            options:
+                form: '=data["shipping_estimator"].getEstimatorFormView(data["entity"])'
+                attr:
+                  class: ' shipping-estimator__form'
+#                  data-hash: 'false' # this will stop Oro's JS from taking over the form submission
+        - '@add':
+              id: shipping_estimator_form_fields
+              parentId: shipping_estimator_container
+              blockType: form_fields
+              options:
+                  form: '=data["shipping_estimator"].getEstimatorFormView(data["entity"])'
+        - '@add':
+              id: shipping_estimator_form_submit
+              parentId: shipping_estimator_container
+              blockType: button
+              options:
+                  action: submit
+                  text: aligent.shipping.estimator.submit.label
+                  style: auto
+                  attr:
+                      'class': 'role-submit btn btn--info'
+        - '@add':
+              id: shipping_estimator_form_end
+              parentId: shipping_estimator_container
+              blockType: form_end
+              options:
+                  form: '=data["shipping_estimator"].getEstimatorFormView(data["entity"])'
+                  render_rest: false
