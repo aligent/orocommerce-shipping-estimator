@@ -41,7 +41,6 @@ class CountryAndRegionSubscriber implements EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    #[ArrayShape([FormEvents::PRE_SUBMIT => "string"])]
     public static function getSubscribedEvents(): array
     {
         return [
@@ -53,16 +52,17 @@ class CountryAndRegionSubscriber implements EventSubscriberInterface
      * Removes or adds a region field based on the country set on submitted form.
      *
      * @param FormEvent $event
+     * @return void
      */
-    public function preSubmit(FormEvent $event)
+    public function preSubmit(FormEvent $event): void
     {
         $data = $event->getData();
 
-        /** @var $country Country */
-        $country = $this->om->getRepository('OroAddressBundle:Country')
+        /** @var Country $country */
+        $country = $this->om->getRepository(Country::class)
             ->find($data['country'] ?? false);
 
-        if ($country && $country->hasRegions()) {
+        if ($country != null && $country->hasRegions()) {
             $form = $event->getForm();
 
             $config = $form->get('region')->getConfig()->getOptions();
@@ -85,7 +85,7 @@ class CountryAndRegionSubscriber implements EventSubscriberInterface
             );
 
             if (!$form->getData()
-                || ($form->getData() && !$form->getData()->getRegionText())
+                || !$form->getData()->getRegionText()
                 || !empty($data['region'])
             ) {
                 // do not allow saving text region in case when region was checked from list

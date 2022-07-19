@@ -125,7 +125,7 @@ class AjaxShippingEstimatorController extends AbstractController
      *
      * @param string $type
      * @param string $title
-     * @param array $errors
+     * @param array<string|integer, string> $errors
      * @param int $httpCode
      * @return JsonResponse
      */
@@ -143,7 +143,7 @@ class AjaxShippingEstimatorController extends AbstractController
     }
 
     /**
-     * @param array $requestData
+     * @param array<mixed> $requestData
      * @return JsonResponse
      * @throws \Exception
      */
@@ -153,10 +153,12 @@ class AjaxShippingEstimatorController extends AbstractController
         $shoppingList = $this->shoppingListManager->getForCurrentUser($requestData[self::FORM_FIELD_SHOPPING_LIST_ID]);
 
         // handle case where there is no shopping list or list had no items
-        if (!$shoppingList || count($shoppingList->getLineItems()) < 1) {
+        if (!($shoppingList instanceof ShoppingList) || count($shoppingList->getLineItems()) < 1) {
             return $this->makeErrorJsonResponse(
                 'cart_empty_error',
-                $this->translator->trans('aligent.shipping.estimator.action.error.shipping_cannot_be_estimated_due_empty_cart'),
+                $this->translator->trans(
+                    'aligent.shipping.estimator.action.error.shipping_cannot_be_estimated_due_empty_cart'
+                ),
                 []
             );
         }
@@ -188,7 +190,7 @@ class AjaxShippingEstimatorController extends AbstractController
      *  to determine required services without using basic constructor Dependency Injection, as this way allows lazy
      *  loading and associated speed benefits.
      *
-     * @return array
+     * @return array<string, string>
      */
     public static function getSubscribedServices(): array
     {
@@ -202,8 +204,8 @@ class AjaxShippingEstimatorController extends AbstractController
      * ShippingMethodViews data contains extra fields/structure not needed for the Shipping Estimates display,
      * this will simplify the data
      *
-     * @param array $shippingMethodViews
-     * @return array
+     * @param array<string, array<string, array<string, mixed>>> $shippingMethodViews
+     * @return array<integer, array<string, mixed>>
      */
     public function simplifyShippingMethodViews(array $shippingMethodViews): array
     {

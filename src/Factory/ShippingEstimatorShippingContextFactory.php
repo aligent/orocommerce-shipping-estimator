@@ -53,9 +53,11 @@ class ShippingEstimatorShippingContextFactory implements ShippingEstimatorShippi
      * @return ShippingContextInterface|null
      */
     public function create(
-        ShoppingList $shoppingList, string $postcode, ?Region $region = null, ?Country $country = null
-    ): ?ShippingContextInterface
-    {
+        ShoppingList $shoppingList,
+        string $postcode,
+        ?Region $region = null,
+        ?Country $country = null
+    ): ?ShippingContextInterface {
         if (null === $this->shippingContextBuilderFactory) {
             return null;
         }
@@ -65,20 +67,22 @@ class ShippingEstimatorShippingContextFactory implements ShippingEstimatorShippi
         // appear to get used in the process but presumably is present for potential logging/tracing purposes
         $shippingContextBuilder = $this->shippingContextBuilderFactory->createShippingContextBuilder(
             $shoppingList,
-            $shoppingList->getId()
+            (string)$shoppingList->getId()
         );
 
         $currency = $this->getDefaultCurrency();
 
+        /** @var string $shoppingListSubtotal */
+        $shoppingListSubtotal = $this->getShoppingListSubtotal($shoppingList, $currency);
         $subtotal = Price::create(
-            $this->getShoppingListSubtotal($shoppingList, $currency),
+            $shoppingListSubtotal,
             $currency
         );
 
         $shippingContextBuilder
             ->setSubTotal($subtotal)
-            ->setCurrency($currency)
-            ->setPaymentMethod(null); // no payment method info at shipping estimate stage
+            ->setCurrency($currency);
+            // ->setPaymentMethod(null); // no payment method info at shipping estimate stage
 
         // create a "fake" address for the shipping destination: country, state and postcode will be enough for all
         // current shipping rules

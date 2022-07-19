@@ -10,6 +10,7 @@
 namespace Aligent\ShippingEstimatorBundle\Converter;
 
 use Doctrine\Common\Collections\Collection;
+use Oro\Bundle\ProductBundle\Entity\ProductUnit;
 use Oro\Bundle\ShippingBundle\Context\LineItem\Builder\Factory\ShippingLineItemBuilderFactoryInterface;
 use Oro\Bundle\ShippingBundle\Context\LineItem\Collection\Factory\ShippingLineItemCollectionFactoryInterface;
 use Oro\Bundle\ShippingBundle\Context\LineItem\Collection\ShippingLineItemCollectionInterface;
@@ -42,16 +43,15 @@ class ShoppingListShippingLineItemConverter implements ShoppingListShippingLineI
 
         /** @var LineItem $shoppingListLineItem */
         foreach ($shoppingListLineItems as $shoppingListLineItem) {
-            if ($shoppingListLineItem->getProductUnit() === null) {
-                $shippingLineItems = [];
+            $productUnit = $shoppingListLineItem->getProductUnit();
 
-                break;
-            }
+            /** @var int $shoppingListLineItemQty */
+            $shoppingListLineItemQty = $shoppingListLineItem->getQuantity();
 
             $builder = $this->shippingLineItemBuilderFactory->createBuilder(
-                $shoppingListLineItem->getProductUnit(),
-                $shoppingListLineItem->getProductUnit()->getCode(),
-                $shoppingListLineItem->getQuantity(),
+                $productUnit,
+                $productUnit->getCode(),
+                $shoppingListLineItemQty,
                 $shoppingListLineItem
             );
 

@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormView;
 class ShippingEstimatorFormProvider extends AbstractFormProvider
 {
     /**
-     * @return FormInterface
+     * @return FormInterface<mixed>
      */
     public function getEstimatorForm(): FormInterface
     {
@@ -44,9 +44,8 @@ class ShippingEstimatorFormProvider extends AbstractFormProvider
     }
 
     /**
-     * @return array
+     * @return array<string, string>
      */
-    #[ArrayShape(['action' => "string"])]
     private function getOptions(): array
     {
         return ['action' => $this->generateUrl('aligent_shipping_estimate')];
@@ -54,9 +53,8 @@ class ShippingEstimatorFormProvider extends AbstractFormProvider
 
     /**
      * @param ShoppingList $shoppingList
-     * @return array
+     * @return array<string, int>
      */
-    #[ArrayShape(['shoppingListId' => "int"])]
     private function getFormViewData(ShoppingList $shoppingList): array
     {
         return ['shoppingListId' => $shoppingList->getId()];

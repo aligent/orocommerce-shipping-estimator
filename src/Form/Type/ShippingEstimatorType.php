@@ -36,10 +36,11 @@ class ShippingEstimatorType extends AbstractType
     }
 
     /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param FormBuilderInterface<array<int,mixed>> $builder
+     * @param array<string,mixed> $options
+     * @return void
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addEventSubscriber($this->subscriber);
         $builder
@@ -88,18 +89,20 @@ class ShippingEstimatorType extends AbstractType
 
     /**
      * @param OptionsResolver $resolver
+     * @return void
      */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('region_route', 'oro_api_frontend_country_get_regions');
     }
 
     /**
      * @param FormView $view
-     * @param FormInterface $form
-     * @param array $options
+     * @param FormInterface<array<int,mixed>> $form
+     * @param array<string,mixed> $options
+     * @return void
      */
-    public function buildView(FormView $view, FormInterface $form, array $options)
+    public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         if (isset($options['region_route'])) {
             $view->vars['region_route'] = $options['region_route'];

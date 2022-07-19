@@ -16,6 +16,9 @@ interface ShippingEstimatorShippingContextFactoryInterface
      * @return ShippingContextInterface|null
      */
     public function create(
-        ShoppingList $shoppingList, string $postcode, ?Region $region = null, ?Country $country = null
+        ShoppingList $shoppingList,
+        string $postcode,
+        ?Region $region = null,
+        ?Country $country = null
     ): ?ShippingContextInterface;
 }
