@@ -39,7 +39,7 @@ class CountryAndRegionSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * {@inheritDoc}
+     * @return array<string, mixed> The event names to listen to
      */
     public static function getSubscribedEvents(): array
     {
