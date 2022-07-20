@@ -19,7 +19,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     const ROOT_NODE = 'aligent_shipping_estimator';
-    const DEFAULT_GUEST_SHOPPING_LIST_OWNER = 'is_enabled';
+    const SHIPPING_ESTIMATOR_IS_ENABLED = 'is_enabled';
 
     /**
      * {@inheritDoc}
@@ -34,7 +34,7 @@ class Configuration implements ConfigurationInterface
         SettingsBuilder::append(
             $rootNode,
             [
-                self::DEFAULT_GUEST_SHOPPING_LIST_OWNER => ['type' => 'boolean', 'value' => true]
+                self::SHIPPING_ESTIMATOR_IS_ENABLED => ['type' => 'boolean', 'value' => true]
             ]
         );
 
