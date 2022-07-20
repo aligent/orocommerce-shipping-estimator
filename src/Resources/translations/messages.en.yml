@@ -1,0 +1,19 @@
+aligent.shipping.estimate.title: 'Estimate'
+aligent.shipping.estimator.title: 'Estimate Shipping'
+aligent.shipping.estimator.note: 'Please enter your country, state and postcode for a shipping estimate.'
+aligent.shipping.estimator.submit.label: 'Submit'
+aligent.shipping.estimator.advise_no_shipping_methods_available: 'No Shipping Methods Available'
+aligent.shipping.estimator:
+    action:
+        error:
+            not_enable: 'This functionality has been disabled.'
+            validation: 'There were one or more validation errors.'
+            processing_request: 'There were one or more errors processing the request.'
+            shipping_cannot_be_estimated_due_empty_cart: 'Cannot estimate shipping for empty cart.'
+    system_configuration:
+        groups:
+            shopping_list_shipping_estimator.title: 'Shopping List Shipping Estimator'
+        fields:
+            is_enabled:
+                label: 'Enable Shipping Estimator on Shopping List'
+                tooltip: 'Customers will be able to see the Estimate Shipping functionality on the Shipping List page.'

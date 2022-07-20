@@ -1,0 +1,10 @@
+aligent.shipping.estimator.title: 'Estimate Shipping'
+aligent.shipping.estimator.note: 'Please enter your country, state and postcode for a shipping estimate.'
+aligent.shipping.estimate.title: 'Estimate'
+aligent.shipping.estimator.submit.label: 'Submit'
+aligent.shipping.estimator.advise_no_shipping_methods_available: 'No Shipping Methods Available'
+aligent:
+    shipping:
+        estimator:
+            error:
+                shipping_estimator: 'An error occurred in the Shipping Estimator'

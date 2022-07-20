@@ -1,0 +1,16 @@
+<% if (shippingEstimates.length) { %>
+<h4><%- _.__('aligent.shipping.estimate.title') %></h4>
+<ul class="shipping-estimate-list">
+    <%_.each(shippingEstimates, function(shippingEstimate) { %>
+    <li class="shipping-estimate-list__item">
+        <%= shippingEstimate.label %> - <span class="shipping-estimate-list__item__price"><%= formatter.formatCurrency(shippingEstimate.price_value) %></span>
+    </li>
+    <% }) %>
+</ul>
+<% } else {%>
+<div class="notification-flash--error alert" role="alert">
+    <div class="notification-flash__text">
+        <%= _.__("aligent.shipping.estimator.advise_no_shipping_methods_available", { contactUsUrl: routing.generate("oro_contactus_bridge_contact_us_page") }) %>
+    </div>
+</div>
+<% } %>

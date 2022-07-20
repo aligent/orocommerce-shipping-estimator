@@ -1,0 +1,6 @@
+shipping_estimate:
+    resource: "@AligentShippingEstimatorBundle/Controller/Frontend/Api/AjaxShippingEstimatorController.php"
+    type: annotation
+    options:
+        frontend: true
+    prefix: /shippingestimate

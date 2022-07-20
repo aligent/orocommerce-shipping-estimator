@@ -1,0 +1,29 @@
+{% block _shipping_estimator_container_widget %}
+
+    {% set attr = layout_attr_defaults(attr, {
+        'data-page-component-module': 'aligentshippingestimator/js/app/components/shipping-estimator-view-component',
+        'data-page-component-options': {
+            'view': 'oroui/js/app/views/layout-subtree-view'
+        },
+        '~class': ' shopping_list__shipping-estimator'
+    }) %}
+
+    {% set collapseView =  layout_attr_defaults(attr, {
+        component: 'oroui/js/app/components/jquery-widget-component',
+        widgetModule: 'oroui/js/widget/collapse-widget',
+        open: false
+    }) %}
+
+    <div {{ block('block_attributes') }}>
+        <div class="collapse-view"
+             data-page-component-module="oroui/js/app/components/viewport-component"
+             data-page-component-options="{{ collapseView|json_encode }}">
+            <h3 class="shipping-estimator__title" data-collapse-trigger>{{ 'aligent.shipping.estimator.title'|trans }}</h3>
+            <div data-collapse-container>
+                <p>{{ 'aligent.shipping.estimator.note'|trans({'%contactUsUrl%': path('oro_contactus_bridge_contact_us_page')})|raw }}</p>
+                {{ block_widget(block) }}
+                <div class="shopping_list__shipping-estimate" data-js="shipping-estimate-output"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

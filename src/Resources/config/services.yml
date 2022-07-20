@@ -1,0 +1,46 @@
+services:
+  Aligent\ShippingEstimatorBundle\Controller\Frontend\Api\AjaxShippingEstimatorController:
+    public: true
+    arguments:
+      - '@oro_shopping_list.manager.current_shopping_list'
+      - '@oro_shipping.shipping_price.provider'
+      - '@Aligent\ShippingEstimatorBundle\Layout\DataProvider\ShippingEstimatorFormProvider'
+      - '@Aligent\ShippingEstimatorBundle\Factory\ShippingEstimatorShippingContextFactory'
+      - '@translator'
+      - '@oro_featuretoggle.checker.feature_checker'
+    calls:
+      - [ 'setContainer', [ '@Psr\Container\ContainerInterface' ] ]
+    tags:
+      - 'controller.service_arguments'
+      - { name: container.service_subscriber }
+
+  Aligent\ShippingEstimatorBundle\Factory\ShippingEstimatorShippingContextFactory:
+    public: true
+    arguments:
+      - '@oro_config.global'
+      - '@Aligent\ShippingEstimatorBundle\Converter\ShoppingListShippingLineItemConverter'
+      - '@oro_shipping.context.builder_factory_basic'
+
+  Aligent\ShippingEstimatorBundle\Layout\DataProvider\ShippingEstimatorFormProvider:
+    public: true
+    arguments:
+      - '@form.factory'
+      - '@router'
+    tags:
+      - { name: layout.data_provider, alias: shipping_estimator }
+
+  Aligent\ShippingEstimatorBundle\Form\Type\ShippingEstimatorType:
+    arguments:
+      - '@Aligent\ShippingEstimatorBundle\Form\EventListener\CountryAndRegionSubscriber'
+    tags:
+      - { name: form.type, alias: shippingEstimator }
+
+  Aligent\ShippingEstimatorBundle\Converter\ShoppingListShippingLineItemConverter:
+    arguments:
+      - '@oro_shipping.context.line_item_collection_factory.set_shipping_options_if_null'
+      - '@oro_shipping.line_item.factory_basic'
+
+  Aligent\ShippingEstimatorBundle\Form\EventListener\CountryAndRegionSubscriber:
+    arguments:
+      - '@doctrine.orm.entity_manager'
+      - '@form.factory'
