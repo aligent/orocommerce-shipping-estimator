@@ -1,0 +1,6 @@
+aliases:
+    aligentshippingestimator/js/app/components/shipping-estimator-view-component: aligentshippingestimator/js/app/shipping-estimator-view-component
+
+dynamic-imports:
+    aligentshippingestimator:
+        - aligentshippingestimator/js/app/components/shipping-estimator-view-component
