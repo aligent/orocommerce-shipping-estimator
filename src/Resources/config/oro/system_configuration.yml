@@ -1,0 +1,24 @@
+system_configuration:
+    groups:
+        shopping_list_shipping_estimator:
+            title: aligent.shipping.estimator.system_configuration.groups.shopping_list_shipping_estimator.title
+            icon: 'fa-users'
+    fields:
+        aligent_shipping_estimator.is_enabled:
+            data_type: boolean
+            type: Oro\Bundle\ConfigBundle\Form\Type\ConfigCheckbox
+            options:
+                label: aligent.shipping.estimator.system_configuration.fields.is_enabled.label
+                tooltip: aligent.shipping.estimator.system_configuration.fields.is_enabled.tooltip
+
+    tree:
+        system_configuration:
+            commerce:
+                children:
+                    sales:
+                        children:
+                            shopping_list:
+                                children:
+                                    shopping_list_shipping_estimator:
+                                        children:
+                                            - aligent_shipping_estimator.is_enabled

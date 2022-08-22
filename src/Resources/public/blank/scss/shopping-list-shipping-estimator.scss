@@ -1,0 +1,64 @@
+/**
+ * Base styling for .shopping_list__shipping-estimator component in cart page
+ */
+
+.shopping_list__shipping-estimator {
+  $_estimate-bg: get-color('additional', 'ultra');
+  $_border-radius: $border-radius;
+  $_padding: 15px;
+  $_border: 1px solid get-color('additional', 'middle');
+
+  max-width: 50%;
+  border-radius: $_border-radius;
+  padding: $_padding;
+  border: $_border;
+
+  @include breakpoint('mobile-landscape') {
+    max-width: none;
+    float: right;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .collapse-view {
+    .shipping-estimator__title {
+      @include fa-icon($fa-var-caret-right);
+      position: relative;
+      cursor: pointer;
+
+      &::before {
+        margin-right: 7px;
+        display: inline-block;
+        transition: transform 200ms linear;
+      }
+    }
+
+    &.expanded {
+      .shipping-estimator__title::before {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  .shipping-estimator__form {
+    margin: 15px 0;
+  }
+
+  .shipping-estimate-list__item__price {
+    font-weight: bold;
+  }
+
+  .shopping_list__shipping-estimate {
+    background: $_estimate-bg;
+    border-radius: $_border-radius;
+    padding: $_padding;
+
+    &:empty {
+      display: none;
+    }
+  }
+
+  .shipping-estimate-list__item {
+    padding-top: 10px;
+  }
+}
