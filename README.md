@@ -31,9 +31,9 @@ php bin/console oro:platform:update --env=prod
 
 <img src="src/Aligent/AnnouncementBundle/Resources/doc/img/sytem-config.png" alt="Configuration Options">
 
-| Setting                     | Description                                                                                                               |
-|------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
-| **Enable Shipping Estimator On Shopping List** |                                        |
+| Setting                                        | Description                                                                      |
+|------------------------------------------------|----------------------------------------------------------------------------------|
+| **Enable Shipping Estimator On Shopping List** | The Estimate Shipping functionality will be displayed on the Shipping List page. |
 
 Database Modifications
 -------------------
@@ -50,13 +50,6 @@ if needed.
 
 Roadmap / Remaining Tasks
 -------------------
-- [x] Ability to restrict Announcement to one or more Customer Groups
-- [x] OroCommerce 5.0 Support
-- [x] Implement Unit Tests
-- [x] Refactor `AnnouncementDataProvider`
-- [ ] Consistent naming of `color` (deprecate `colour`)
-- [ ] Reset `hideAlert` session variable when new Announcements are added
-- [ ] Ability to block dismissal of Announcement Message (hides the 'X' button)
-- [ ] Ability to only display on Homepage
-- [ ] Ability to configure multiple messages for different scenarios
-- [ ] (TBC) Move away from Content Blocks to WYSIWYG configuration fields
+- [ ] Ability to display the Shipping Estimator component on other routes (eg: PDP) 
+- [ ] OroCommerce 5.0 Support
+- [ ] Implement Unit Tests
