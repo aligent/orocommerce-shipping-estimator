@@ -29,7 +29,7 @@ php bin/console oro:platform:update --env=prod
 
 ### Configuration Settings
 
-<img src="src/Aligent/ShippingEstimatorBundle/Resources/doc/img/sytem-config.png" alt="Configuration Options">
+<img src="src/Resources/doc/img/system-config.png" alt="Configuration Options">
 
 | Setting                                        | Description                                                                      |
 |------------------------------------------------|----------------------------------------------------------------------------------|
