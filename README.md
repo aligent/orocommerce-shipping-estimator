@@ -2,7 +2,7 @@ Aligent OroCommerce Shipping Estimator Bundle
 ==============================
 This bundle adds the Shipping Estimator functionality on the OroCommerce storefront shopping list.
 
-<img src="src/Aligent/AnnouncementBundle/Resources/doc/img/feature.png" alt="Shipping Estimator functionality">
+<img src="src/Aligent/ShippingEstimatorBundle/Resources/doc/img/feature.png" alt="Shipping Estimator functionality">
 
 ### Features
 - Enable/disable the Shipping Estimator component on the storefront shopping list
@@ -29,7 +29,7 @@ php bin/console oro:platform:update --env=prod
 
 ### Configuration Settings
 
-<img src="src/Aligent/AnnouncementBundle/Resources/doc/img/sytem-config.png" alt="Configuration Options">
+<img src="src/Aligent/ShippingEstimatorBundle/Resources/doc/img/sytem-config.png" alt="Configuration Options">
 
 | Setting                                        | Description                                                                      |
 |------------------------------------------------|----------------------------------------------------------------------------------|
