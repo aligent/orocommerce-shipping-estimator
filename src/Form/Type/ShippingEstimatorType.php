@@ -90,7 +90,7 @@ class ShippingEstimatorType extends AbstractType
 
     /**
      * @param FormView $view
-     * @param FormInterface<array<int,mixed>> $form
+     * @param FormInterface<mixed> $form
      * @param array<string,mixed> $options
      * @return void
      */

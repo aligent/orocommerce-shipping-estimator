@@ -9,7 +9,7 @@ use Oro\Bundle\ShoppingListBundle\Entity\LineItem;
 interface ShoppingListShippingLineItemConverterInterface
 {
     /**
-     * @param Collection<int,LineItem>|LineItem[] $shoppingListLineItems
+     * @param Collection<int,LineItem>|array<LineItem> $shoppingListLineItems
      * @return ShippingLineItemCollectionInterface<int,ShippingLineItemInterface>
      */
     public function convertLineItems(Collection|array $shoppingListLineItems): ShippingLineItemCollectionInterface;
