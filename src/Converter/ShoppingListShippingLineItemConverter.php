@@ -10,7 +10,6 @@
 namespace Aligent\ShippingEstimatorBundle\Converter;
 
 use Doctrine\Common\Collections\Collection;
-use Oro\Bundle\ProductBundle\Entity\ProductUnit;
 use Oro\Bundle\ShippingBundle\Context\LineItem\Builder\Factory\ShippingLineItemBuilderFactoryInterface;
 use Oro\Bundle\ShippingBundle\Context\LineItem\Collection\Factory\ShippingLineItemCollectionFactoryInterface;
 use Oro\Bundle\ShippingBundle\Context\LineItem\Collection\ShippingLineItemCollectionInterface;
@@ -18,14 +17,9 @@ use Oro\Bundle\ShoppingListBundle\Entity\LineItem;
 
 class ShoppingListShippingLineItemConverter implements ShoppingListShippingLineItemConverterInterface
 {
+    protected ShippingLineItemCollectionFactoryInterface $shippingLineItemCollectionFactory;
+    protected ShippingLineItemBuilderFactoryInterface $shippingLineItemBuilderFactory;
 
-    private ShippingLineItemCollectionFactoryInterface $shippingLineItemCollectionFactory;
-    private ShippingLineItemBuilderFactoryInterface $shippingLineItemBuilderFactory;
-
-    /**
-     * @param ShippingLineItemCollectionFactoryInterface $shippingLineItemCollectionFactory
-     * @param ShippingLineItemBuilderFactoryInterface $shippingLineItemBuilderFactory
-     */
     public function __construct(
         ShippingLineItemCollectionFactoryInterface $shippingLineItemCollectionFactory,
         ShippingLineItemBuilderFactoryInterface $shippingLineItemBuilderFactory
@@ -35,7 +29,7 @@ class ShoppingListShippingLineItemConverter implements ShoppingListShippingLineI
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function convertLineItems(Collection|array $shoppingListLineItems): ShippingLineItemCollectionInterface
     {

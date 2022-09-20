@@ -21,10 +21,7 @@ class Configuration implements ConfigurationInterface
     const ROOT_NODE = 'aligent_shipping_estimator';
     const SHIPPING_ESTIMATOR_IS_ENABLED = 'is_enabled';
 
-    /**
-     * {@inheritDoc}
-     */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder(self::ROOT_NODE);
 
@@ -34,17 +31,13 @@ class Configuration implements ConfigurationInterface
         SettingsBuilder::append(
             $rootNode,
             [
-                self::SHIPPING_ESTIMATOR_IS_ENABLED => ['type' => 'boolean', 'value' => true]
+                self::SHIPPING_ESTIMATOR_IS_ENABLED => ['type' => 'boolean', 'value' => true],
             ]
         );
 
         return $treeBuilder;
     }
 
-    /**
-     * @param string $key
-     * @return string
-     */
     public static function getConfigKeyByName(string $key): string
     {
         return implode(ConfigManager::SECTION_MODEL_SEPARATOR, [AligentShippingEstimatorExtension::ALIAS, $key]);

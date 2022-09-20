@@ -23,33 +23,29 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class ShippingEstimatorType extends AbstractType
 {
-
     protected EventSubscriberInterface $subscriber;
 
-    /**
-     * ShippingEstimatorType constructor.
-     * @param EventSubscriberInterface $subscriber
-     */
     public function __construct(EventSubscriberInterface $subscriber)
     {
         $this->subscriber = $subscriber;
     }
 
     /**
-     * @param FormBuilderInterface<array<int,mixed>> $builder
+     * @param FormBuilderInterface<mixed> $builder
      * @param array<string,mixed> $options
      * @return void
      */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->addEventSubscriber($this->subscriber);
+
         $builder
             ->add(
                 'country',
                 CountryType::class,
                 [
                     'required' => true,
-                    'label' => 'oro.tax.taxjurisdiction.country.label',
+                    'label' => 'oro.order.orderaddress.country.label',
                     'constraints' => [
                         new Assert\NotBlank(),
                     ],
@@ -60,7 +56,7 @@ class ShippingEstimatorType extends AbstractType
                 RegionType::class,
                 [
                     'required' => false,
-                    'label' => 'oro.tax.taxjurisdiction.region.label'
+                    'label' => 'oro.order.orderaddress.region.label'
                 ]
             )
             ->add(
@@ -69,7 +65,7 @@ class ShippingEstimatorType extends AbstractType
                 [
                     'required' => false,
                     'random_id' => true,
-                    'label' => 'oro.tax.taxjurisdiction.region_text.label'
+                    'label' => 'oro.order.orderaddress.region_text.label'
                 ]
             )
             ->add(
@@ -77,7 +73,7 @@ class ShippingEstimatorType extends AbstractType
                 TextType::class,
                 [
                     'required' => true,
-                    'label' => 'oro.tax.zipcode.entity_label',
+                    'label' => 'oro.order.orderaddress.postal_code.label',
                     'trim' => true,
                     'constraints' => [
                         new Assert\NotBlank(),
@@ -87,10 +83,6 @@ class ShippingEstimatorType extends AbstractType
             ->add('shoppingListId', HiddenType::class);
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     * @return void
-     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('region_route', 'oro_api_frontend_country_get_regions');
