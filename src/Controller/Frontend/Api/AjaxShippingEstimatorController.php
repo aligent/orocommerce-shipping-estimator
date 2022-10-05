@@ -16,10 +16,10 @@ use Oro\Bundle\FeatureToggleBundle\Checker\FeatureChecker;
 use Oro\Bundle\ShippingBundle\Provider\Price\ShippingPriceProviderInterface;
 use Oro\Bundle\ShoppingListBundle\Entity\ShoppingList;
 use Oro\Bundle\ShoppingListBundle\Manager\CurrentShoppingListManager;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -33,22 +33,14 @@ class AjaxShippingEstimatorController extends AbstractController
     const FORM_FIELD_POSTCODE = 'postcode';
     const FORM_FIELD_SHOPPING_LIST_ID = 'shoppingListId';
 
-    protected CurrentShoppingListManager $shoppingListManager;
+    private FeatureChecker $featureChecker;
 
+    protected CurrentShoppingListManager $shoppingListManager;
     protected ShippingPriceProviderInterface $shippingPriceProvider;
     protected ShippingEstimatorFormProvider $shippingEstimatorFormProvider;
     protected ShippingEstimatorShippingContextFactory $shippingEstimatorShippingContextFactory;
-
     protected TranslatorInterface $translator;
-    private FeatureChecker $featureChecker;
 
-    /**
-     * @param CurrentShoppingListManager $shoppingListManager
-     * @param ShippingPriceProviderInterface $shippingPriceProvider
-     * @param ShippingEstimatorFormProvider $shippingEstimatorFormProvider
-     * @param ShippingEstimatorShippingContextFactory $shippingEstimatorShippingContextFactory
-     * @param TranslatorInterface $translator
-     */
     public function __construct(
         CurrentShoppingListManager $shoppingListManager,
         ShippingPriceProviderInterface $shippingPriceProvider,
@@ -183,21 +175,6 @@ class AjaxShippingEstimatorController extends AbstractController
         ];
 
         return new JsonResponse($responseData);
-    }
-
-    /**
-     * Override/Extend the parent controller method to add our required service classes. Symfony Core v4.4(+) uses this
-     *  to determine required services without using basic constructor Dependency Injection, as this way allows lazy
-     *  loading and associated speed benefits.
-     *
-     * @return array<string, string>
-     */
-    public static function getSubscribedServices(): array
-    {
-        return array_merge(parent::getSubscribedServices(), [
-            ShippingEstimatorShippingContextFactory::class,
-            ShippingEstimatorFormProvider::class,
-        ]);
     }
 
     /**

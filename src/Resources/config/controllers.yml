@@ -1,0 +1,18 @@
+services:
+    _defaults:
+        public: true
+
+    Aligent\ShippingEstimatorBundle\Controller\Frontend\Api\AjaxShippingEstimatorController:
+        public: true
+        arguments:
+            - '@oro_shopping_list.manager.current_shopping_list'
+            - '@oro_shipping.shipping_price.provider'
+            - '@Aligent\ShippingEstimatorBundle\Layout\DataProvider\ShippingEstimatorFormProvider'
+            - '@Aligent\ShippingEstimatorBundle\Factory\ShippingEstimatorShippingContextFactory'
+            - '@translator'
+            - '@oro_featuretoggle.checker.feature_checker'
+        calls:
+            - [ 'setContainer', [ '@Psr\Container\ContainerInterface' ] ]
+        tags:
+            - 'controller.service_arguments'
+            - { name: container.service_subscriber }

@@ -9,8 +9,6 @@
  */
 namespace Aligent\ShippingEstimatorBundle\Factory;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Aligent\ShippingEstimatorBundle\Context\ShippingEstimatorShippingContextFactoryInterface;
 use Aligent\ShippingEstimatorBundle\Converter\ShoppingListShippingLineItemConverterInterface;
 use Oro\Bundle\AddressBundle\Entity\Address;
 use Oro\Bundle\AddressBundle\Entity\Country;
@@ -25,16 +23,10 @@ use Oro\Bundle\ShoppingListBundle\Entity\ShoppingListTotal;
 
 class ShippingEstimatorShippingContextFactory implements ShippingEstimatorShippingContextFactoryInterface
 {
-
     protected ConfigManager $oroGlobalConfigManager;
     protected ShoppingListShippingLineItemConverterInterface $shippingLineItemConverter;
     protected ?ShippingContextBuilderFactoryInterface $shippingContextBuilderFactory;
 
-    /**
-     * @param ConfigManager $oroGlobalConfigManager
-     * @param ShoppingListShippingLineItemConverterInterface $shippingLineItemConverter
-     * @param null|ShippingContextBuilderFactoryInterface $shippingContextBuilderFactory
-     */
     public function __construct(
         ConfigManager $oroGlobalConfigManager,
         ShoppingListShippingLineItemConverterInterface $shippingLineItemConverter,
@@ -45,13 +37,6 @@ class ShippingEstimatorShippingContextFactory implements ShippingEstimatorShippi
         $this->oroGlobalConfigManager = $oroGlobalConfigManager;
     }
 
-    /**
-     * @param ShoppingList $shoppingList
-     * @param string $postcode
-     * @param Region|null $region
-     * @param Country|null $country
-     * @return ShippingContextInterface|null
-     */
     public function create(
         ShoppingList $shoppingList,
         string $postcode,
@@ -113,21 +98,15 @@ class ShippingEstimatorShippingContextFactory implements ShippingEstimatorShippi
 
         $convertedLineItems = $this->shippingLineItemConverter->convertLineItems($shoppingList->getLineItems());
 
-        if (null !== $convertedLineItems) {
+        if (!$convertedLineItems->isEmpty()) {
             $shippingContextBuilder->setLineItems($convertedLineItems);
         }
 
         return $shippingContextBuilder->getResult();
     }
 
-    /**
-     * @param ShoppingList $shoppingList
-     * @param string $currency
-     * @return float
-     */
     protected function getShoppingListSubtotal(ShoppingList $shoppingList, string $currency): float
     {
-        /** @var ArrayCollection|ShoppingListTotal[] $shoppingListTotals */
         $shoppingListTotals = $shoppingList->getTotals();
 
         /** @var ShoppingListTotal $shoppingListTotal_defaultCurrency */
@@ -146,9 +125,6 @@ class ShippingEstimatorShippingContextFactory implements ShippingEstimatorShippi
         return $shoppingListTotal->getSubtotal()->getAmount();
     }
 
-    /**
-     * @return string
-     */
     protected function getDefaultCurrency(): string
     {
         $currencyConfigKey = CurrencyConfig::getConfigKeyByName(CurrencyConfig::KEY_DEFAULT_CURRENCY);
