@@ -10,11 +10,9 @@
  */
 namespace Aligent\ShippingEstimatorBundle\Form\EventListener;
 
-use Doctrine\Persistence\ObjectManager;
-use JetBrains\PhpStorm\ArrayShape;
+use Doctrine\Persistence\ManagerRegistry;
 use Oro\Bundle\AddressBundle\Entity\Country;
 use Oro\Bundle\AddressBundle\Entity\Repository\RegionRepository;
-use Oro\Bundle\AddressBundle\Form\Type\RegionType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -22,19 +20,14 @@ use Symfony\Component\Form\FormFactoryInterface;
 
 class CountryAndRegionSubscriber implements EventSubscriberInterface
 {
-
-    protected ObjectManager $om;
+    protected ManagerRegistry $managerRegistry;
     protected FormFactoryInterface $factory;
 
-    /**
-     * Constructor.
-     *
-     * @param ObjectManager $om
-     * @param FormFactoryInterface $factory
-     */
-    public function __construct(ObjectManager $om, FormFactoryInterface $factory)
-    {
-        $this->om = $om;
+    public function __construct(
+        ManagerRegistry $managerRegistry,
+        FormFactoryInterface $factory,
+    ) {
+        $this->managerRegistry = $managerRegistry;
         $this->factory = $factory;
     }
 
@@ -50,16 +43,13 @@ class CountryAndRegionSubscriber implements EventSubscriberInterface
 
     /**
      * Removes or adds a region field based on the country set on submitted form.
-     *
-     * @param FormEvent $event
-     * @return void
      */
     public function preSubmit(FormEvent $event): void
     {
         $data = $event->getData();
 
         /** @var Country $country */
-        $country = $this->om->getRepository(Country::class)
+        $country = $this->managerRegistry->getRepository(Country::class)
             ->find($data['country'] ?? false);
 
         if ($country != null && $country->hasRegions()) {
@@ -100,10 +90,6 @@ class CountryAndRegionSubscriber implements EventSubscriberInterface
         $event->setData($data);
     }
 
-    /**
-     * @param Country $country
-     * @return callable
-     */
     protected function getRegionClosure(Country $country): callable
     {
         return function (RegionRepository $regionRepository) use ($country) {

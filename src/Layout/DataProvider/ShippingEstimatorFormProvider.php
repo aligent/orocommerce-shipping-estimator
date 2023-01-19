@@ -10,7 +10,6 @@
 namespace Aligent\ShippingEstimatorBundle\Layout\DataProvider;
 
 use Aligent\ShippingEstimatorBundle\Form\Type\ShippingEstimatorType;
-use JetBrains\PhpStorm\ArrayShape;
 use Oro\Bundle\LayoutBundle\Layout\DataProvider\AbstractFormProvider;
 use Oro\Bundle\ShoppingListBundle\Entity\ShoppingList;
 use Symfony\Component\Form\FormInterface;
@@ -30,10 +29,6 @@ class ShippingEstimatorFormProvider extends AbstractFormProvider
         );
     }
 
-    /**
-     * @param ShoppingList $shoppingList
-     * @return FormView
-     */
     public function getEstimatorFormView(ShoppingList $shoppingList): FormView
     {
         return $this->getFormView(

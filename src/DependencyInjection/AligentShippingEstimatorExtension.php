@@ -12,14 +12,12 @@ namespace Aligent\ShippingEstimatorBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 class AligentShippingEstimatorExtension extends Extension
 {
-
     const ALIAS = 'aligent_shipping_estimator';
-
 
     /**
      * @param array<int,mixed> $configs
@@ -35,12 +33,10 @@ class AligentShippingEstimatorExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+        $loader->load('controllers.yml');
     }
 
-    /**
-     * @return string
-     */
-    public function getAlias()
+    public function getAlias(): string
     {
         return self::ALIAS;
     }
