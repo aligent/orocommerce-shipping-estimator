@@ -10,21 +10,14 @@
 namespace Aligent\ShippingEstimatorBundle\Converter;
 
 use Doctrine\Common\Collections\Collection;
-use Oro\Bundle\ShippingBundle\Context\LineItem\Builder\Factory\ShippingLineItemBuilderFactoryInterface;
-use Oro\Bundle\ShippingBundle\Context\LineItem\Collection\Factory\ShippingLineItemCollectionFactoryInterface;
+use Oro\Bundle\ShippingBundle\Context\LineItem\Factory\ShippingLineItemFromProductLineItemFactoryInterface;
 use Oro\Bundle\ShoppingListBundle\Entity\LineItem;
 
 class ShoppingListShippingLineItemConverter implements ShoppingListShippingLineItemConverterInterface
 {
-    protected ShippingLineItemCollectionFactoryInterface $shippingLineItemCollectionFactory;
-    protected ShippingLineItemBuilderFactoryInterface $shippingLineItemBuilderFactory;
-
     public function __construct(
-        ShippingLineItemCollectionFactoryInterface $shippingLineItemCollectionFactory,
-        ShippingLineItemBuilderFactoryInterface $shippingLineItemBuilderFactory
+        protected ShippingLineItemFromProductLineItemFactoryInterface $shippingLineItemFactory,
     ) {
-        $this->shippingLineItemCollectionFactory = $shippingLineItemCollectionFactory;
-        $this->shippingLineItemBuilderFactory = $shippingLineItemBuilderFactory;
     }
 
     /**
@@ -32,29 +25,6 @@ class ShoppingListShippingLineItemConverter implements ShoppingListShippingLineI
      */
     public function convertLineItems(Collection|array $shoppingListLineItems): Collection
     {
-        $shippingLineItems = [];
-
-        /** @var LineItem $shoppingListLineItem */
-        foreach ($shoppingListLineItems as $shoppingListLineItem) {
-            $productUnit = $shoppingListLineItem->getProductUnit();
-
-            /** @var int $shoppingListLineItemQty */
-            $shoppingListLineItemQty = $shoppingListLineItem->getQuantity();
-
-            $builder = $this->shippingLineItemBuilderFactory->createBuilder(
-                $productUnit,
-                $productUnit->getCode(),
-                $shoppingListLineItemQty,
-                $shoppingListLineItem
-            );
-
-            if (null !== $shoppingListLineItem->getProduct()) {
-                $builder->setProduct($shoppingListLineItem->getProduct());
-            }
-
-            $shippingLineItems[] = $builder->getResult();
-        }
-
-        return $this->shippingLineItemCollectionFactory->createShippingLineItemCollection($shippingLineItems);
+        return $this->lineItemFactory->createCollection($shoppingListLineItems);
     }
 }
