@@ -36,6 +36,7 @@ class AligentShippingEstimatorExtension extends Extension
         $loader->load('controllers.yml');
     }
 
+    #[\Override]
     public function getAlias(): string
     {
         return self::ALIAS;

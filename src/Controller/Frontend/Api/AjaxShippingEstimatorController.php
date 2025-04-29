@@ -19,7 +19,7 @@ use Oro\Bundle\ShoppingListBundle\Manager\CurrentShoppingListManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -67,12 +67,12 @@ class AjaxShippingEstimatorController extends AbstractController
     }
 
     /**
-     * @Route("/shipping-estimate/", name="aligent_shipping_estimate", options={"expose"= true})
      *
      * @param Request $request
      * @return JsonResponse
      * @throws \Exception
      */
+    #[Route(path: '/shipping-estimate/', name: 'aligent_shipping_estimate', options: ['expose' => true])]
     public function shippingEstimateAction(Request $request): JsonResponse
     {
         if (!$this->isShippingEstimatorEnabled()) {
