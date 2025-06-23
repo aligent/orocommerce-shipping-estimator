@@ -25,6 +25,6 @@ class ShoppingListShippingLineItemConverter implements ShoppingListShippingLineI
      */
     public function convertLineItems(Collection|array $shoppingListLineItems): Collection
     {
-        return $this->lineItemFactory->createCollection($shoppingListLineItems);
+        return $this->shippingLineItemFactory->createCollection($shoppingListLineItems);
     }
 }
