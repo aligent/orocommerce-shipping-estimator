@@ -23,7 +23,6 @@ class AligentShippingEstimatorExtensionTest extends ExtensionTestCase
             'Aligent\ShippingEstimatorBundle\Factory\ShippingEstimatorShippingContextFactory',
             'Aligent\ShippingEstimatorBundle\Layout\DataProvider\ShippingEstimatorFormProvider',
             'Aligent\ShippingEstimatorBundle\Form\Type\ShippingEstimatorType',
-            'Aligent\ShippingEstimatorBundle\Converter\ShoppingListShippingLineItemConverter',
             'Aligent\ShippingEstimatorBundle\Form\EventListener\CountryAndRegionSubscriber'
         ];
         $this->assertDefinitionsLoaded($expectedDefinitions);

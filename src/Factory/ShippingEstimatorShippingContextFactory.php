@@ -9,13 +9,13 @@
  */
 namespace Aligent\ShippingEstimatorBundle\Factory;
 
-use Aligent\ShippingEstimatorBundle\Converter\ShoppingListShippingLineItemConverterInterface;
 use Oro\Bundle\AddressBundle\Entity\Address;
 use Oro\Bundle\AddressBundle\Entity\Country;
 use Oro\Bundle\AddressBundle\Entity\Region;
 use Oro\Bundle\ConfigBundle\Config\ConfigManager;
 use Oro\Bundle\CurrencyBundle\DependencyInjection\Configuration as CurrencyConfig;
 use Oro\Bundle\CurrencyBundle\Entity\Price;
+use Oro\Bundle\OrderBundle\Converter\OrderShippingLineItemConverterInterface;
 use Oro\Bundle\ShippingBundle\Context\Builder\Factory\ShippingContextBuilderFactoryInterface;
 use Oro\Bundle\ShippingBundle\Context\ShippingContextInterface;
 use Oro\Bundle\ShoppingListBundle\Entity\ShoppingList;
@@ -24,12 +24,12 @@ use Oro\Bundle\ShoppingListBundle\Entity\ShoppingListTotal;
 class ShippingEstimatorShippingContextFactory implements ShippingEstimatorShippingContextFactoryInterface
 {
     protected ConfigManager $oroGlobalConfigManager;
-    protected ShoppingListShippingLineItemConverterInterface $shippingLineItemConverter;
+    protected OrderShippingLineItemConverterInterface $shippingLineItemConverter;
     protected ?ShippingContextBuilderFactoryInterface $shippingContextBuilderFactory;
 
     public function __construct(
         ConfigManager $oroGlobalConfigManager,
-        ShoppingListShippingLineItemConverterInterface $shippingLineItemConverter,
+        OrderShippingLineItemConverterInterface $shippingLineItemConverter,
         ShippingContextBuilderFactoryInterface $shippingContextBuilderFactory = null
     ) {
         $this->shippingLineItemConverter = $shippingLineItemConverter;

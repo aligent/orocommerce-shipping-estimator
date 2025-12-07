@@ -3,7 +3,7 @@ services:
         public: true
         arguments:
             - '@oro_config.global'
-            - '@Aligent\ShippingEstimatorBundle\Converter\ShoppingListShippingLineItemConverter'
+            - '@oro_order.shipping_line_item.converter_basic'
             - '@oro_shipping.context.builder_factory_basic'
 
     Aligent\ShippingEstimatorBundle\Layout\DataProvider\ShippingEstimatorFormProvider:
@@ -19,10 +19,6 @@ services:
             - '@Aligent\ShippingEstimatorBundle\Form\EventListener\CountryAndRegionSubscriber'
         tags:
             - { name: form.type, alias: shippingEstimator }
-
-    Aligent\ShippingEstimatorBundle\Converter\ShoppingListShippingLineItemConverter:
-        arguments:
-            - '@oro_shipping.context.line_item.factory.shipping_line_item_from_product_line_item_factory'
 
     Aligent\ShippingEstimatorBundle\Form\EventListener\CountryAndRegionSubscriber:
         arguments:
