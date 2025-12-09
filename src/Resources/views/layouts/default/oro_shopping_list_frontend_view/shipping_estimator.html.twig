@@ -1,4 +1,5 @@
 {% block _shipping_estimator_container_widget %}
+    {% import '@OroUI/layouts/renderIcon.html.twig' as renderIcon %}
 
     {% set attr = layout_attr_defaults(attr, {
         'data-page-component-module': 'aligentshippingestimator/js/app/components/shipping-estimator-view-component',
@@ -8,22 +9,27 @@
         '~class': ' shopping_list__shipping-estimator'
     }) %}
 
-    {% set collapseView =  layout_attr_defaults(attr, {
-        component: 'oroui/js/app/components/jquery-widget-component',
-        widgetModule: 'oroui/js/widget/collapse-widget',
-        open: false
-    }) %}
+    {% set collapseId = 'shipping-estimator-'|uniqid %}
 
     <div {{ block('block_attributes') }}>
-        <div class="collapse-view"
-             data-page-component-module="oroui/js/app/components/viewport-component"
-             data-page-component-options="{{ collapseView|json_encode }}">
-            <h3 class="shipping-estimator__title" data-collapse-trigger>{{ 'aligent.shipping.estimator.title'|trans }}</h3>
-            <div data-collapse-container>
-                <p>{{ 'aligent.shipping.estimator.note'|trans({'%contactUsUrl%': path('oro_contactus_bridge_contact_us_page')})|raw }}</p>
-                {{ block_widget(block) }}
-                <div class="shopping_list__shipping-estimate" data-js="shipping-estimate-output"></div>
-            </div>
+        <button class="shipping-estimator__title collapse-toggle"
+                type="button"
+                data-toggle="collapse"
+                data-target="{{ '#' ~ collapseId }}"
+                aria-controls="{{ collapseId }}"
+                aria-expanded="false"
+        >
+            <span data-icon class="trigger-icon">{{ renderIcon.icon({name: 'chevron-right'}) }}</span>
+            <span data-text>{{ 'aligent.shipping.estimator.title'|trans }}</span>
+        </button>
+        <div id="{{ collapseId }}"
+             class="collapse"
+             data-trigger-icon-show="chevron-up"
+             data-trigger-icon-hide="chevron-right"
+        >
+            <p>{{ 'aligent.shipping.estimator.note'|trans({'%contactUsUrl%': path('oro_contactus_bridge_contact_us_page')})|raw }}</p>
+            {{ block_widget(block) }}
+            <div class="shopping_list__shipping-estimate" data-js="shipping-estimate-output"></div>
         </div>
     </div>
 {% endblock %}

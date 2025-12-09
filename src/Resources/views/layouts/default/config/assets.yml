@@ -1,4 +1,3 @@
 styles:
     inputs:
-        - 'bundles/oroui/css/scss/settings/global-settings.scss'
         - 'bundles/aligentshippingestimator/default/scss/shopping-list-shipping-estimator.scss'
